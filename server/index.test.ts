@@ -6,9 +6,11 @@ const port = 3000;
 describe('WebSocket Server', () => {
   let server: Server;
   let user: User;
-  let client = WebSocket;
 
-  let testNewUserMessage: Message;
+  // let client = WebSocket;  // wird später eventuell noch gebraucht.
+
+  // let testNewUserMessage: Message; // wird später eventuell noch gebraucht.
+
   beforeAll(async () => {
     user = {
       id: '1',
@@ -70,7 +72,7 @@ describe('WebSocket Server', () => {
     // Create test client
     const client = new WebSocket(`ws://localhost:${port}`);
     await waitForSocketState(client, client.OPEN);
-    let responseMessages: Message[] = [];
+    const responseMessages: Message[] = [];
     let messageCounter = 0;
     client.on('message', (data: RawData) => {
       responseMessages.push(JSON.parse(data.toString()));
