@@ -8,9 +8,11 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: [self-hosted, Linux, x64]
 
     steps:
+      - run: echo "Build läuft"
+
       - name: Checkout code
         uses: actions/checkout@v3
 
