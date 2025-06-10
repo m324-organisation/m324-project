@@ -4,3 +4,4 @@ resources:
   - ingress.yaml
   - deployment.yaml
   - service.yaml
+  - uptime-kuma.yaml
