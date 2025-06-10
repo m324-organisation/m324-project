@@ -24,6 +24,7 @@
         break;
       case 'typing':
         typingUsers = message.users;
+        updateTypingIndicator();
         break;
       default:
         break;
@@ -58,4 +59,26 @@
       document.getElementById('messageInput').value = '';
     }
   });
+
+  // Function to update typing indicator
+  const updateTypingIndicator = () => {
+    const typingIndicator = document.getElementById('typingIndicator');
+    const otherTypingUsers = typingUsers.filter(user => user.id !== myUser.id);
+    
+    if (otherTypingUsers.length === 0) {
+      typingIndicator.classList.add('hidden');
+    } else {
+      const names = otherTypingUsers.map(user => user.name);
+      let text;
+      if (names.length === 1) {
+        text = `${names[0]} schreibt gerade...`;
+      } else if (names.length === 2) {
+        text = `${names[0]} und ${names[1]} schreiben gerade...`;
+      } else {
+        text = `${names.slice(0, -1).join(', ')} und ${names[names.length - 1]} schreiben gerade...`;
+      }
+      typingIndicator.textContent = text;
+      typingIndicator.classList.remove('hidden');
+    }
+  };
 })();
