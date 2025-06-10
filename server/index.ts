@@ -29,6 +29,12 @@ app.use(express.static('client'));
 app.get('/', (req: Request, res: Response) => {
   res.sendFile(__dirname + '/client/index.html');
 });
+
+// healthcheck endpoint for monitoring
+app.get('/healthcheck', (req: Request, res: Response) => {
+  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
 // Initialize the websocket server
 initializeWebsocketServer(server);
 
