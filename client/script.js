@@ -21,6 +21,7 @@
         break;
       case 'activeUsers':
         activeUsers = message.users;
+        updateActiveUsersList();
         break;
       case 'typing':
         typingUsers = message.users;
@@ -68,7 +69,7 @@
     if (otherTypingUsers.length === 0) {
       typingIndicator.classList.add('hidden');
     } else {
-      const names = otherTypingUsers.map(user => user.name);
+      const names = otherTypingUsers.map(user => user.name || user.username);
       let text;
       if (names.length === 1) {
         text = `${names[0]} schreibt gerade...`;
@@ -80,5 +81,27 @@
       typingIndicator.textContent = text;
       typingIndicator.classList.remove('hidden');
     }
+  };
+
+  // Function to update active users list
+  const updateActiveUsersList = () => {
+    const activeUsersList = document.getElementById('activeUsersList');
+    activeUsersList.innerHTML = '';
+    
+    activeUsers.forEach(user => {
+      const userElement = document.createElement('div');
+      userElement.className = 'flex items-center space-x-2 p-2 bg-gray-600 rounded';
+      
+      const statusDot = document.createElement('div');
+      statusDot.className = 'w-2 h-2 bg-green-400 rounded-full';
+      
+      const userName = document.createElement('span');
+      userName.className = 'text-white text-sm';
+      userName.textContent = user.id === myUser.id ? `${user.name || user.username} (You)` : (user.name || user.username);
+      
+      userElement.appendChild(statusDot);
+      userElement.appendChild(userName);
+      activeUsersList.appendChild(userElement);
+    });
   };
 })();
