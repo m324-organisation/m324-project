@@ -32,7 +32,11 @@ app.get('/', (req: Request, res: Response) => {
 
 // healthcheck endpoint for monitoring
 app.get('/healthcheck', (req: Request, res: Response) => {
-  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+  res.status(200).json({ 
+    status: 'OK', 
+    httpStatus: 200,
+    timestamp: new Date().toISOString() 
+  });
 });
 
 // Initialize the websocket server
